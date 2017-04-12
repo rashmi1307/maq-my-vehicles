@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8"> <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Map my vehicles</h3>
+	<div id="floating-panel">
+    <b>Mode of Travel: </b>
+	<select id="mode">
+      <option value="DRIVING">Driving</option>
+      <option value="WALKING">Walking</option>
+      <option value="BICYCLING">Bicycling</option>
+      <option value="TRANSIT">Transit</option>
+	</select>
+    </div>
+    <div id="map"></div>
+
+    <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var delhi = {lat: 28.38, lng: 77.12};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: delhi,
+        });
+	 directionsDisplay.setMap(map);
+
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+        document.getElementById('mode').addEventListener('change', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+
+        var marker = new google.maps.Marker({
+          position: delhi,
+icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        strokeColor: "yellow",
+        scale: 5
+    },
+          map: map,
+	title: 'New Delhi'
+        });
+	var agra = {lat: 27.1767, lng:78.0081 };
+	var marker =  new google.maps.Marker({
+          position: agra,
+          map: map,
+	title: 'Agra- root1'
+	});
+	var allahabad = {lat: 25.4358, lng:81.8463 };
+	var marker =  new google.maps.Marker({
+          position: allahabad,
+          map: map,
+	title: 'Allahabad-root1'
+	});
+	var varanasi = {lat: 25.3176, lng:82.9739 };
+	var marker =  new google.maps.Marker({
+          position: varanasi,
+          map: map,
+	title: 'Varanasi-root1'
+	});
+	var gaya = {lat: 24.7955, lng:84.9994 };
+	var marker =  new google.maps.Marker({
+          position: gaya,
+          map: map,
+	title: 'Gaya-root1'
+	});
+	var jamshedpur = {lat: 22.8046, lng:86.2029 };
+	var marker =  new google.maps.Marker({
+          position: jamshedpur,
+          map: map,
+	title: 'Jamshedpur-root1'
+	});
+	var panipat = {lat: 29.3909, lng:76.9635 };
+	var marker =  new google.maps.Marker({
+          position: panipat,
+icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        strokeColor: "blue",
+        scale: 5
+    },
+          map: map,
+	title: 'Panipat-root2'
+	});
+	var aligarh = {lat: 27.8974, lng:78.0880 };
+	var marker =  new google.maps.Marker({
+          position: aligarh,
+icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        strokeColor: "blue",
+        scale: 5
+    },
+          map: map,
+	title: 'Aligarh-root2'
+	});
+	var mathura = {lat: 27.4924, lng:77.6737 };
+	var marker =  new google.maps.Marker({
+          position: mathura,
+icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        strokeColor: "blue",
+        scale: 5
+    },
+          map: map,
+	title: 'Mathura-root2'
+	});
+}
+	 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: 29.3909, lng:76.9635 },
+          destination: {lat: 22.8046, lng:86.2029 },
+
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status == 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+
+	
+
+    </script>
+
+	   
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZuqNaxPQ0cfB2qfivlmva2eAxDxNsM80&callback=initMap">
+    </script>
+  </body>
+</html>
